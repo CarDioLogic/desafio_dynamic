@@ -1,0 +1,58 @@
+name: Deploy Backend
+
+on:
+  push:
+    paths:
+      - 'backend/**' # Only triggers when files in the backend folder change
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3' # Matches modern Laravel requirements
+
+      - name: Install Dependencies
+        run: |
+          cd backend
+          composer install --no-dev --optimize-autoloader
+
+      - name: Create .env File
+        run: |
+          cd backend
+          cp .env.example .env
+          # Swap placeholders with your GitHub Secrets
+          sed -i "s#APP_KEY=.*#APP_KEY=${{ secrets.APP_KEY }}#g" .env
+          sed -i "s#APP_URL=.*#APP_URL=http://developers-challenge.great-site.net#g" .env
+          sed -i "s#APP_ENV=.*#APP_ENV=production#g" .env
+          sed -i "s#APP_DEBUG=.*#APP_DEBUG=false#g" .env
+          sed -i "s#DB_HOST=.*#DB_HOST=${{ secrets.DB_HOST }}#g" .env
+          sed -i "s#DB_DATABASE=.*#DB_DATABASE=${{ secrets.DB_DATABASE }}#g" .env
+          sed -i "s#DB_USERNAME=.*#DB_USERNAME=${{ secrets.DB_USERNAME }}#g" .env
+          sed -i "s#DB_PASSWORD=.*#DB_PASSWORD=${{ secrets.DB_PASSWORD }}#g" .env
+          # Optimized for InfinityFree Shared Hosting
+          sed -i "s#SESSION_DRIVER=.*#SESSION_DRIVER=file#g" .env
+          sed -i "s#CACHE_STORE=.*#CACHE_STORE=file#g" .env
+          sed -i "s#QUEUE_CONNECTION=.*#QUEUE_CONNECTION=sync#g" .env
+
+      - name: Set Directory Permissions
+        run: |
+          chmod -R 777 backend/storage
+          chmod -R 777 backend/bootstrap/cache
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # This takes the contents of your 'backend' folder
+          local-dir: ./backend/
+          # And puts them directly into 'htdocs'
+          server-dir: ./htdocs/
