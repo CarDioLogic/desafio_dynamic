@@ -31,9 +31,10 @@ class DevController extends Controller
     {
         $terms = $request->query('terms');
 
-        // if (!$request->filled('terms')) {
-        //     return response()->json(['message' => 'terms is required'], 400);
-        // }
+        //terms mandatory as specs require
+        if (!$request->filled('terms')) {
+            return response()->json(['message' => 'Specify search terms to find developers'], 400);
+        }
 
         $query = Dev::query();
 
@@ -45,9 +46,11 @@ class DevController extends Controller
               });
         });
 
-        return $query
-            ->limit(20)
-            ->get();
+        $results = $query->limit(20)->get();
+
+        return response()
+            ->json($results, 200)
+            ->header('X-Total-Count', Dev::count());
     }
 
     /**
@@ -122,13 +125,13 @@ class DevController extends Controller
         }
 
         return response()->json([
-            'id' => $dev->id,
             'nickname' => $dev->nickname,
             'name' => $dev->name,
             'birth_date' => $dev->birth_date,
             'stack_names' => !empty($validated['stack_names'])
                 ? $validated['stack_names']
                 : null
-        ], 201);
+        ], 201)
+            ->header('Location', "/devs/{$dev->id}");
     }
 }

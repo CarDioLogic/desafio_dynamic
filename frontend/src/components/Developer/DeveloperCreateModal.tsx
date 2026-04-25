@@ -7,6 +7,7 @@ import TextInput from "../General/Inputs/TextInput";
 import { saveDev } from "../../../api/client";
 import type { Dev } from "../../../core/interfaces";
 import LoadingSpinner from "../General/LoadingSpinner";
+import { toast } from "react-hot-toast";
 
 export default function CreateDeveloperModal({
   setCreateDevModal,
@@ -44,10 +45,21 @@ export default function CreateDeveloperModal({
     try {
       setIsSaving(true);
       const response = await saveDev(newDev);
+      toast.success("Developer saved");
       console.log("Dev saved:", response)
       setCreateDevModal(false);
-    } catch (error) {
-      console.error("Failed to save dev:", error);
+    } catch (error: any) {
+      const apiError = error?.response?.data;
+
+      console.error("Failed to save dev:", apiError || error);
+
+      const message =
+        apiError?.message ||
+        apiError?.error ||
+        "Failed to save developer";
+
+      toast.error(message);
+
     } finally {
       setIsSaving(false);
     }
@@ -117,7 +129,7 @@ export default function CreateDeveloperModal({
 
             <button
               onClick={addStack}
-              className="bg-gray-600 text-white px-2 rounded cursor-pointer"
+              className="bg-slate-600 hover:bg-slate-800 text-white px-2 rounded cursor-pointer"
             >
               Add
             </button>
@@ -127,7 +139,7 @@ export default function CreateDeveloperModal({
             {newDev.stack_names?.map((stack, index) => (
               <div
                 key={index}
-                className="bg-gray-200 px-2 py-1 rounded flex items-center gap-2"
+                className="bg-slate-200 px-2 py-1 rounded flex items-center gap-2"
               >
                 {stack}
                 <button
@@ -149,7 +161,7 @@ export default function CreateDeveloperModal({
             ) : (
               <button
                 onClick={handleSaveDev}
-                className="bg-slate-600 text-white px-3 py-1 rounded cursor-pointer"
+                className="bg-slate-600 hover:bg-slate-800 text-white px-3 py-1 rounded cursor-pointer"
               >
                 Create
               </button>

@@ -13,8 +13,9 @@ class Dev extends Model
     public $incrementing = false;
     protected $keyType = 'string';
     protected $appends = ['stack_names'];
-    protected $hidden = ['stacks', 'updated_at', 'created_at', 'id'];
+    protected $hidden = ['stacks', 'updated_at', 'created_at'];
     protected $fillable = [
+        'id',
         'nickname',
         'name',
         'birth_date',
