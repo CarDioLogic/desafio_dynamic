@@ -3,7 +3,8 @@
 A full-stack application featuring a Laravel backend and a React (Vite) frontend.
 
 ## 🚀 Live Production
-Check out the live site here: [#site](#site)
+* **/frontend**: Hosted on GitHub Pages ([Live Link](https://cardiologic.github.io/desafio_dynamic/))
+* **/backend**: Hosted on render "https://desafio-dynamic.onrender.com/api/"
 
 ---
 
