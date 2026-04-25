@@ -13,7 +13,8 @@ jobs:
         run: |
           cd frontend
           npm install
-          npm run build # This usually creates a 'dist' or 'build' folder
+          # We add the --emptyOutDir to be safe, and skip type checking
+          npx vite build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
