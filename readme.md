@@ -41,16 +41,12 @@ Follow these steps to get the project running on your machine. You will need two
 | **Frontend** | GitHub Pages | GitHub Actions (Auto on push) |
 | **Backend** | Render | Dockerfile |
 
-### ⚠️ Important: Database Migrations
-InfinityFree does not allow external connections to its MySQL databases. Therefore, any database or migration changes **must be deployed manually**:
-
-1. Export your local database (SQL dump).
-2. Log in to the InfinityFree control panel.
-3. Import the SQL file via **phpMyAdmin**.
+### Database Migrations
+Migrations to production are handled automatically in the dockerfile using artisan commands.
 
 ---
 
-## 🛠 Tech Stack
+## 🛠  Used Tech Stack and versions
 
 * **Backend:** Laravel `12.57.0` (PHP `8.2.12`)
 * **Frontend:** React `19.2.5`
