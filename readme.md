@@ -21,6 +21,8 @@ Follow these steps to get the project running on your machine. You will need two
   `cp .env.example .env && php artisan key:generate`
 * **Database Migration & Seeding:**
   `php artisan migrate:fresh --seed`
+* **(optional) Run tests:**
+  `php artisan test`
 * **Run the server:**
   `php artisan serve` (Port: 8000)
 
