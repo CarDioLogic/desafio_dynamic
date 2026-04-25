@@ -37,8 +37,8 @@ Follow these steps to get the project running on your machine. You will need two
 
 | Component | Hosting | Deployment Method |
 | :--- | :--- | :--- |
-| **Frontend** | GitHub Pages | GitHub Actions (Auto on push to main) |
-| **Backend** | InfinityFree | GitHub Actions (Auto on push to main) |
+| **Frontend** | GitHub Pages | GitHub Actions (Auto on push) |
+| **Backend** | Render | Dockerfile |
 
 ### ⚠️ Important: Database Migrations
 InfinityFree does not allow external connections to its MySQL databases. Therefore, any database or migration changes **must be deployed manually**:
