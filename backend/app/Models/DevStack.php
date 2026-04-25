@@ -8,6 +8,7 @@ class DevStack extends Model
 {
     protected $fillable = [
         'name',
+        'slug',
         'dev_id',
     ];
 

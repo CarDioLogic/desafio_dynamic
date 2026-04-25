@@ -42,7 +42,7 @@ class DevController extends Controller
             $q->where('name', 'like', "%{$terms}%")
               ->orWhere('nickname', 'like', "%{$terms}%")
               ->orWhereHas('stacks', function ($sq) use ($terms) {
-                  $sq->where('name', 'like', "%{$terms}%");
+                $sq->where('slug', 'like', '%' . Str::slug($terms) . '%');
               });
         });
 
@@ -119,7 +119,8 @@ class DevController extends Controller
         if (!empty($validated['stack_names'])) {
             foreach ($validated['stack_names'] as $tech) {
                 $dev->stacks()->create([
-                    'name' => $tech
+                    'name' => $tech,
+                    'slug' => Str::slug($tech)
                 ]);
             }
         }

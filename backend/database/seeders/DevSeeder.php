@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Dev;
+use Illuminate\Support\Str;
 
 class DevSeeder extends Seeder
 {
@@ -28,7 +29,8 @@ class DevSeeder extends Seeder
 
                 foreach ($randomStacks as $tech) {
                     $dev->stacks()->create([
-                        'name' => $tech
+                        'name' => $tech,
+                        'slug' => Str::slug($tech)
                     ]);
                 }
             });

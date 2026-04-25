@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->uuid('dev_id');
             $table->string('name', 32);
+            $table->string('slug')->index();
             $table->timestamps();
             $table->foreign('dev_id')
                 ->references('id')
