@@ -12,7 +12,7 @@ export default function DevelopersPage() {
         <div onClick={() => setCreateDevModal(true)}
           title="Add developer"
           className="cursor-pointer fixed text-4xl w-[50px] h-[50px] flex items-center justify-center bg-slate-800 rounded-full text-white bottom-5 left-5">
-            <img src="/icons/add.svg"/>
+            <img src="icons/add.svg"/>
         </div>
 
       { (createDevModal) && (

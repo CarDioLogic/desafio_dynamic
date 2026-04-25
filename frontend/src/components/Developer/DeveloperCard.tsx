@@ -15,7 +15,7 @@ export default function DeveloperCard({ dev, presentDetails }: Props) {
                 <h4>{dev.nickname}</h4>
 
                 <div className="items-center flex gap-2" title="Birthday">
-                    <img src="/icons/cake.svg" alt="cake icon" className="invert" />
+                    <img src="icons/cake.svg" alt="cake icon" className="invert" />
                     <h4>{dev.birth_date}</h4>
                 </div>                
             </div>

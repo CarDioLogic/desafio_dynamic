@@ -12,7 +12,7 @@ export default function ModalWrapper({children, setCloseModal}) {
             {children}
         <div onClick={() => closeModal()}
           className="cursor-pointer absolute w-[30px] h-[30px] flex items-center justify-center bg-slate-600 hover:bg-slate-800 rounded-full text-white top-[-10px] right-0">
-            <img src="/icons/close.svg"/>
+            <img src="icons/close.svg"/>
         </div>
         </div>
     </div>
